@@ -4,6 +4,7 @@ import "./popup.css";
 import api from "../lib/api";
 import "../index.css";
 import { CryptoWatchlistItem } from "../components/crypto-watchlist-item";
+import { CryptoSearchItem } from "../components/crypto-search-item";
 import Loader from "@/components/loader";
 
 interface Coin {
@@ -19,6 +20,9 @@ interface Coin {
     };
   };
 }
+interface SearchResponse {
+  coins: Coin[];
+}
 
 const SearchList: React.FC<{
   coins: Coin[];
@@ -27,7 +31,7 @@ const SearchList: React.FC<{
   return (
     <div>
       {coins.map((coin) => (
-        <CryptoWatchlistItem
+        <CryptoSearchItem
           coin={coin}
           onAddToWatchlist={() => onAddToWatchlist(coin)}
         />
@@ -50,11 +54,12 @@ const App: React.FC<{}> = () => {
 
   useEffect(() => {
     setLoading(true);
-    if (search.length > 0) {
+    if (search.trim().length > 0) {
       api
-        .get<Coin>(`/coins/${search}`)
+        .get<SearchResponse>(`/search?query=${search}`)
         .then((response) => {
-          setSearchList((searchList) => [...searchList, response.data]);
+          const { coins } = response.data as SearchResponse;
+          setSearchList(coins);
         })
         .catch((error) => {
           console.error({ error });
@@ -63,14 +68,25 @@ const App: React.FC<{}> = () => {
           setLoading(false);
         });
     }
-    if (search.length === 0) {
+    if (search.trim().length === 0) {
       clearSearch();
     }
   }, [search]);
+  console.log({ searchList });
+
+  const fetchCoin = async (coinId: string) => {
+    api.get<Coin>(`/coins/${coinId}`).then((response) => {
+      const coin = response.data as Coin;
+      setCoins((coins) => [...coins, coin]);
+    });
+  };
 
   const onAddToWatchlist = (coin: Coin) => {
-    setCoins((coins) => [...coins, coin]);
-    setSearch("");
+    setLoading(true);
+    fetchCoin(coin.id).then(() => {
+      setSearch("");
+      setLoading(false);
+    });
   };
 
   const onRemoveFromWatchlist = (coin: Coin) => {
