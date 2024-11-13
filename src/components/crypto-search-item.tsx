@@ -1,15 +1,9 @@
 import React from "react";
 import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
-
-interface SearchItem {
-  id?: string;
-  name?: string;
-  thumb?: string;
-}
-
+import { CoinSearchResult } from "@/models/CoinSearchResult";
 interface CryptoSearchItemProps {
-  coin: SearchItem;
+  coin: CoinSearchResult;
   onAddToWatchlist?: () => void;
 }
 
@@ -24,10 +18,10 @@ export function CryptoSearchItem({
   const { id, name, thumb } = coin;
 
   return (
-    <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-      <CardContent className="p-4 flex items-center justify-between">
+    <Card className="w-full max-w-sm transition-shadow duration-300 hover:shadow-lg bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+      <CardContent className="flex items-center justify-between p-4">
         <div className="flex items-center space-x-4">
-          <Avatar className="h-12 w-12">
+          <Avatar className="w-12 h-12">
             <AvatarImage src={thumb} alt={`${name} logo`} />
             <AvatarFallback>
               {name?.substring(0, 2).toUpperCase() || "N/A"}
@@ -42,7 +36,7 @@ export function CryptoSearchItem({
             </p>
           </div>
         </div>
-        <div className="flex  items-end gap-2">
+        <div className="flex items-end gap-2">
             <button
               onClick={onAddToWatchlist}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-colors bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/30`}
