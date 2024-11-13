@@ -2,7 +2,7 @@
   "name": "react-chrome-extension",
   "version": "1.0.0",
   "description": "react chrome extension template",
-  "license": "MIT",
+   "license": "Custom"
   "scripts": {
     "start": "webpack --watch --progress --config webpack.dev.js",
     "build": "webpack --watch --progress --config webpack.prod.js"
