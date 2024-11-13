@@ -2,7 +2,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+const Dotenv = require('dotenv-webpack');
 module.exports = {
   entry: {
     popup: path.resolve('src/popup/popup.tsx'),
@@ -19,7 +19,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
@@ -29,11 +29,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      'react/jsx-runtime': require.resolve('react/jsx-runtime')
+    },
   },
   plugins: [
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
+    new Dotenv(),
     new CopyPlugin({
       patterns: [
         {

@@ -4,6 +4,12 @@
     "module": "es6",
     "target": "es6",
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": ["node", "react", "chrome"],
+    "lib": ["dom", "es2015"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }
