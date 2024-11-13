@@ -1,0 +1,48 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Compiled output
+*.js
+*.jsx
+*.map
+*.d.ts
+
+# Webpack files
+webpack-stats.json
+!webpack.dev.js
+!webpack.prod.js
+!webpack.common.js
+
+# Optional npm cache directory
+.pnpm/
+
+# Env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
