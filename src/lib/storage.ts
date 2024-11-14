@@ -1,12 +1,36 @@
+import { Coin } from "@/models/Coin";
+
 export interface LocalStorage {
-  getItem: (key: string) => Promise<string | null>;
-  setItem: (key: string, value: string) => Promise<void>;
+  coins: Coin[];
 }
 
-export function setStoredWatchlist(watchlist: Coin[]): LocalStorage {
-  return {
-    getItem: async (key: string) => {
-      return localStorage.getItem(key);
-    },
-  };
-}
+export type LocalStorageKeys = keyof LocalStorage;
+
+export const setStoredCoin = (coin: Coin): Promise<void> => {
+  return new Promise((resolve) => {
+    getStoredCoins().then((coins) => {
+      chrome.storage.local.set({ coins: [...coins, coin] }, () => {
+        resolve();
+      });
+    });
+  });
+};
+
+export const getStoredCoins = (): Promise<Coin[]> => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get("coins", (result) => {
+      resolve(result.coins || []);
+    });
+  });
+};
+
+export const removeStoredCoin = (coinId: string): Promise<void> => {
+  return new Promise((resolve) => {
+    getStoredCoins().then((coins) => {
+      const existingCoins = coins.filter((c) => c.id !== coinId);
+      chrome.storage.local.set({ coins: existingCoins }, () => {
+        resolve();
+      });
+    });
+  });
+};

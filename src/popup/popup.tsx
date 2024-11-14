@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./popup.css";
-import "../index.css";
 import Loader from "@/components/loader";
 import { useSearch } from "../hooks/useSearch";
 import { SearchList } from "@/components/search-list";
 import { useWatchlist } from "@/hooks/useWatchList";
 import { SearchBar } from "@/components/search-bar";
 import { WatchlistContent } from "@/components/watch-list-content";
+import "@/index.css";
+import "./popup.css";
 
 const App: React.FC = () => {
   const {
@@ -29,7 +29,7 @@ const App: React.FC = () => {
   const shouldShowSearchList = search && !isLoading;
 
   return (
-    <div className="p-4 min-w-[400px] flex flex-col items-center gap-4 justify-center">
+    <div id="crypto-watchlist-chrome-extension-root-popup" className="p-4 min-w-[400px] flex flex-col items-center gap-4 justify-center">
       <h1 className="mb-4 text-2xl font-bold text-center">Crypto Watchlist</h1>
 
       <SearchBar value={search} onChange={setSearch} />

@@ -1,0 +1,60 @@
+.crypto-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  transition: box-shadow 0.3s ease;
+  color: #1c1c1c;
+  min-width: 300px;
+}
+
+.crypto-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.crypto-content {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.crypto-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.crypto-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.crypto-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-fallback {
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.crypto-details h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.price {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+} 
